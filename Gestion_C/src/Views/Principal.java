@@ -85,7 +85,7 @@ public class Principal extends javax.swing.JPanel {
 
         jLabel3.setText("forma óptima y fácil uso de gestion para productores agricolas");
 
-        jLabel4.setText("Esta herramienta le permitirá llevar un control completo y detallado de su los cultivos producidos,");
+        jLabel4.setText("Esta herramienta le permitirá llevar un control completo y detallado de  los cultivos producidos,");
 
         jLabel5.setText("tendrá acceso a herramientas especiales para tareas específicas, como lo son:");
 
@@ -95,7 +95,7 @@ public class Principal extends javax.swing.JPanel {
 
         jLabel8.setText("• asiganacion de tareas para agricultores en sus cultivos");
 
-        jLabel9.setText("• seguimirnto de tareas");
+        jLabel9.setText("• seguimiento de tareas");
 
         jLabel10.setText("• Crear tareas");
 
@@ -206,7 +206,7 @@ public class Principal extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents

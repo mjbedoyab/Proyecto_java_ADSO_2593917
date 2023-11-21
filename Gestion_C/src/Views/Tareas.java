@@ -31,7 +31,7 @@ public class Tareas extends javax.swing.JPanel {
         nombre_tarea.setForeground(Color.WHITE);
         descripcion.putClientProperty("FlatLaf.styleClass", "large");
         descripcion.setForeground(Color.WHITE);
-        campo_tarea.putClientProperty("JTextField.placeholderText", "Ingrese el folio del usuario.");
+        campo_tarea.putClientProperty("JTextField.placeholderText", "Ingrese el nombre de la tarea.");
     }
     
     public void init2(){
@@ -51,15 +51,13 @@ public class Tareas extends javax.swing.JPanel {
             }
         }
     }
-    public void insertarTarea(String id_cultivo, String titulo, String descripcion, String fecha_inicio, String fecha_final){
+    public void insertarTarea(String id_cultivo, String titulo, String descripcion){
        ConsumoApi insertarCuñtivo = new ConsumoApi();
         Map<String, String> insertData = new HashMap<>();
             insertData.put("id_cultivo", id_cultivo);
             insertData.put("titulo", titulo);
             insertData.put("descripcion", descripcion);
-            insertData.put("fecha_inicio",fecha_inicio);
-            insertData.put("fecha_fin", fecha_final);
-            insertData.put("estado", "Pendiente");
+            insertData.put("estado", "Finalizado");
         
         
         
@@ -101,7 +99,7 @@ public class Tareas extends javax.swing.JPanel {
                 
             }
            
-            insertarTarea(id_cultivo, nombre, desc, fecha, fecha);
+            insertarTarea(id_cultivo, nombre, desc);
         }
         
     }

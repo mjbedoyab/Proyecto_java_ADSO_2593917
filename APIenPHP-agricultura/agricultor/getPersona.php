@@ -5,14 +5,25 @@
 
     include 'Conexion.php';
    
-    if (!empty($_GET['cedula']) || !empty($_GET['nombre']) ) {
-        $cedula = $_GET['cedula'];
-        $nombre = $_GET['nombre'];
+    if (isset($_GET['cedula']) || isset($_GET['nombre'] ) ) {
         
-	    $consulta = $base_de_datos->query("SELECT * FROM agricultores WHERE cedula = '$cedula' or nombre = '$nombre' ");
-	    $datos = $consulta->fetchAll();
-        $respuesta['registros'] = $datos;
-        echo json_encode($respuesta);
+        $cedula = isset($_GET['cedula']) ? $_GET['cedula'] : null;
+        $nombre = isset($_GET['nombre']) ? $_GET['nombre'] : null;
+    
+        if ($cedula !== null || $nombre !== null) {
+            $consulta = $base_de_datos->query("SELECT * FROM agricultores WHERE cedula = '$cedula' OR nombre = '$nombre'");
+            $datos = $consulta->fetchAll();
+            $respuesta['registros'] = $datos;
+            echo json_encode($respuesta);
+        } else {
+            $respuesta = [
+                'status' => false,
+                'mesagge' => "ERROR##DATOS##GET",
+                '$_GET' => $_GET,
+                '$_POST' => $_POST
+            ];
+            echo json_encode($respuesta);
+        }
 	}else{
         $respuesta = [
                         'status' => false,

@@ -1,14 +1,31 @@
 package Views;
 
 
+import Clases.ButtonEditor;
+import Clases.ButtonRenderer;
+import Clases.cultivos;
+import Principal.Dashboard;
+import apiDB.ConsumoApi;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class Seguimiento extends javax.swing.JPanel {
-
+    private JButton etqBoton[];
     public Seguimiento() {
         initComponents();
         InitStyles();
+        init2();
+        cargarCultivos();
 
     }
     
@@ -17,7 +34,73 @@ public class Seguimiento extends javax.swing.JPanel {
         title.setForeground(Color.WHITE);
     }
     
+    public void init2(){
+        this.jTable1.getColumn("TAREAS").setCellRenderer(new ButtonRenderer());
+        this.jTable1.getColumn("TAREAS").setCellEditor(new ButtonEditor(new JCheckBox()));
+        
+    }
     
+    public void cargarCultivos(){
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DESCRIPCION");
+        modelo.addColumn("TIPO");
+        modelo.addColumn("TAREAS");
+        jTable1.setModel(modelo);
+        ConsumoApi traer = new ConsumoApi();
+        
+        ImageIcon icon_editar = new ImageIcon("src/img/binoculars.png");
+        
+        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        center.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.setRowHeight(35);
+        String datos = traer.consumoGET("http://localhost/APIenPHP-agricultura/cultivos/Obtener.php");
+        JsonObject listaCulti = JsonParser.parseString(datos).getAsJsonObject();
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(center);
+        }
+        init2();
+        
+        if(listaCulti.has("registros")){
+            JsonArray listaCultivos = listaCulti.getAsJsonArray("registros");
+            etqBoton= new JButton[listaCultivos.size()];
+           
+            for(int i=0; i< listaCultivos.size();i++){
+                //int i = Integer.parseInt(String.valueOf(registroElement));
+                
+                JsonObject temporal = listaCultivos.get(i).getAsJsonObject();
+                etqBoton[i]= new JButton(icon_editar);
+                etqBoton[i].setVerticalTextPosition(SwingConstants.BOTTOM);
+                etqBoton[i].setHorizontalTextPosition(SwingConstants.CENTER);
+                etqBoton[i].setContentAreaFilled(false);  // Oculta el fondo del botón
+                etqBoton[i].setBorderPainted(false);     // Oculta el borde del botón
+                
+               
+               
+                
+                String id_cultivo = temporal.get("id_cultivo").getAsString();
+                String nombre = temporal.get("nombre").getAsString();
+                String descripcion = temporal.get("descripcion").getAsString();
+                String tipo = temporal.get("tipo").getAsString();
+                
+                
+                   etqBoton[i].addActionListener(new ActionListener() {
+                    @Override
+                        public void actionPerformed(ActionEvent e) {
+                            cultivos editCulti = new cultivos(id_cultivo, nombre, descripcion, tipo);
+                            Dashboard.ShowJPanel(new SeguimientoTarea(id_cultivo));
+                        }
+                    });
+            
+                
+                modelo.addRow(new Object[]{nombre, descripcion, tipo, etqBoton[i]});
+                 
+                }
+                  
+        }else{
+            System.out.println("Views.Agricultores.mostrar()");
+        }
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -42,7 +125,7 @@ public class Seguimiento extends javax.swing.JPanel {
 
         title.setText("Reportes");
 
-        actualizar.setBackground(new java.awt.Color(153, 0, 255));
+        actualizar.setBackground(new java.awt.Color(0, 102, 0));
         actualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         actualizar.setForeground(new java.awt.Color(255, 255, 255));
         actualizar.setText("Actualizar");
@@ -54,24 +137,26 @@ public class Seguimiento extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(51, 51, 51));
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jTable1.setBackground(new java.awt.Color(0, 51, 51));
+        jTable1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "NOMBRE", "DESCRIPCION", "TIPO", "MOSTRAR TAREAS"
+                "NOMBRE", "DESCRIPCION", "TIPO", "TAREAS"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {

@@ -63,21 +63,24 @@ public class Agricultores extends javax.swing.JPanel {
         modelo.addColumn("ELIMINAR");
         jTable1.setModel(modelo);
         ConsumoApi traer = new ConsumoApi();
-        
-        
+        init2();
+        //cargo las imagenes del boton
         ImageIcon icon = new ImageIcon("src/img/eliminar.png");
         ImageIcon icon2 = new ImageIcon("src/img/editar.png");
         
         
-        
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.setRowHeight(35); // cambia el espacio que hay entre las celdas de la tabla
         
+        //traigo todos los agricultores de la base de datos
         String datos = traer.consumoGET("http://localhost/APIenPHP-agricultura/agricultor/Obtener.php");
         JsonObject listaAgri = JsonParser.parseString(datos).getAsJsonObject();
+        
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
             jTable1.getColumnModel().getColumn(i).setCellRenderer(center);
         }
+        
         if(listaAgri.has("registros")){
             JsonArray listaAgricultores = listaAgri.getAsJsonArray("registros");
             etqBoton= new JButton[listaAgricultores.size()];
@@ -92,9 +95,6 @@ public class Agricultores extends javax.swing.JPanel {
                 etqBoton[i].setContentAreaFilled(false);  // Oculta el fondo del botón
                 etqBoton[i].setBorderPainted(false);     // Oculta el borde del botón
                 
-                
-                
-                
                 etqBotonE[i]= new JButton("",icon);
                 etqBotonE[i].setVerticalTextPosition(SwingConstants.BOTTOM);
                 etqBotonE[i].setHorizontalTextPosition(SwingConstants.CENTER);
@@ -108,69 +108,64 @@ public class Agricultores extends javax.swing.JPanel {
                 String telefono = temporal.get("telefono").getAsString();
                 String email = temporal.get("email").getAsString();
                 String estado = temporal.get("estado").getAsString();
+                String pass = temporal.get("pass").getAsString();
                 
-                etqBoton[i].addActionListener(new ActionListener() {
+                   etqBoton[i].addActionListener(new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        agricultor editAgri = new agricultor(cedula, nombre, apellido, telefono, email, estado);
-                        Dashboard.ShowJPanel(new UpUsers("editar", editAgri));
-                        
-                        
-                       
-                    }
-                });
+                        public void actionPerformed(ActionEvent e) {
+                            agricultor editAgri = new agricultor(cedula, nombre, apellido, telefono, email, estado,pass);
+                            Dashboard.ShowJPanel(new UpUsers("editar", editAgri));
+                        }
+                    });
             
-               etqBotonE[i].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                     
-                            int respuesta = JOptionPane.showConfirmDialog(
-                                null,
-                                "Seguro que desea eliminar a: " + nombre + " " + apellido,
-                                "Confirmar eliminación",
-                                JOptionPane.YES_NO_OPTION
-                            );
-                            
-                            
-                            if (respuesta == JOptionPane.YES_OPTION) {
-                                
-                                ConsumoApi eliminar = new ConsumoApi();
-                                Map<String, String> deleteData = new HashMap<>();
-                                deleteData.put("cedula", cedula);
-                                
-                                eliminar.consumoPOST("http://localhost/APIenPHP-agricultura/agricultor/Delete.php"  , deleteData);
-                                ShowJPanel(new Agricultores());
-                            } else {
-                                
+                    etqBotonE[i].addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                                int respuesta = JOptionPane.showConfirmDialog(
+                                    null,
+                                    "Seguro que desea eliminar a: " + nombre + " " + apellido,
+                                    "Confirmar eliminación",
+                                    JOptionPane.YES_NO_OPTION
+                                );
+
+
+                                if (respuesta == JOptionPane.YES_OPTION) {
+
+                                    ConsumoApi eliminar = new ConsumoApi();
+                                    Map<String, String> updateData = new HashMap<>();
+                                    updateData.put("cedula", cedula);
+                                    updateData.put("estado", "INACTIVO");
+
+                                    eliminar.consumoPOST("http://localhost/APIenPHP-agricultura/agricultor/DeleteEstado.php"  , updateData);
+                                    ShowJPanel(new Agricultores());
+                                } else {
+
                             }
-                    }
-                });
+                        }
+                    });
             
-                
-                
-                
                 
                 modelo.addRow(new Object[]{cedula, nombre, apellido, telefono, email, "*****", estado, etqBoton[i], etqBotonE[i]});
-                
-                
-                
-            }
+                 
+                }
+                  
         }else{
             System.out.println("Views.Agricultores.mostrar()");
         }
         
-        
-        
-        
     }
     
     public void buscar(){
+        
         
         String buscar = this.inputBuscar.getText();
         ConsumoApi traer = new ConsumoApi();
         Map<String, String> getData = new HashMap<>();
         getData.put("cedula", buscar);
         getData.put("nombre", buscar);
+        
+        //traigo los datos de la persona buscada
         String datoUsuario =traer.consumoGET("http://localhost/APIenPHP-agricultura/agricultor/getPersona.php",getData);
             
         DefaultTableModel modelo = new DefaultTableModel();
@@ -186,17 +181,41 @@ public class Agricultores extends javax.swing.JPanel {
         jTable1.setModel(modelo);
         
         
+        //cargo las imagenes del boton
+        ImageIcon icon_editar = new ImageIcon("src/img/eliminar.png");
+        ImageIcon icon_eliminar = new ImageIcon("src/img/editar.png");
+        
+        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        center.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.setRowHeight(25); // cambia el esacio que hay entre las celdas de la tabla
         
         JsonObject listaAgri = JsonParser.parseString(datoUsuario).getAsJsonObject();
-        
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(center);
+        }
+        init2();
         if(listaAgri.has("registros")){
             JsonArray listaAgricultores = listaAgri.getAsJsonArray("registros");
             etqBoton= new JButton[listaAgricultores.size()];
             etqBotonE= new JButton[listaAgricultores.size()];
             for(int i=0; i< listaAgricultores.size();i++){
                  JsonObject temporal = listaAgricultores.get(i).getAsJsonObject();
-                etqBoton[i]= new JButton("Editar");
-                etqBotonE[i]= new JButton("Eliminar");
+                 
+                 //BOTON EDITAR
+                etqBoton[i]= new JButton(icon_eliminar);
+                etqBoton[i].setVerticalTextPosition(SwingConstants.BOTTOM);
+                etqBoton[i].setHorizontalTextPosition(SwingConstants.CENTER);
+                etqBoton[i].setContentAreaFilled(false);  // Oculta el fondo del botón
+                etqBoton[i].setBorderPainted(false);     // Oculta el borde del botón
+                
+                //BOTON ELIMINAR
+                etqBotonE[i]= new JButton(icon_editar);
+                etqBotonE[i].setVerticalTextPosition(SwingConstants.BOTTOM);
+                etqBotonE[i].setHorizontalTextPosition(SwingConstants.CENTER);
+                etqBotonE[i].setContentAreaFilled(false);  // Oculta el fondo del botón
+                etqBotonE[i].setBorderPainted(false);     // Oculta el borde del botón
+                
+                //GUARDO LOS DATOS DEL JSONOBJECT TEMPORAL EN VARIABLES
                 String cedula = temporal.get("cedula").getAsString();
                 String nombre = temporal.get("nombre").getAsString();
                 String apellido = temporal.get("apellido").getAsString();
@@ -204,8 +223,41 @@ public class Agricultores extends javax.swing.JPanel {
                 String email = temporal.get("email").getAsString();
                 String estado = temporal.get("estado").getAsString();
                 
-                modelo.addRow(new Object[]{cedula, nombre, apellido, telefono, email, "*****", estado, "hola", "pedo"});
-                
+                modelo.addRow(new Object[]{cedula, nombre, apellido, telefono, email, "*****", estado, etqBoton[i], etqBotonE[i]});
+                 etqBoton[i].addActionListener(new ActionListener() {
+                    @Override
+                        public void actionPerformed(ActionEvent e) {
+                            agricultor editAgri = new agricultor(cedula, nombre, apellido, telefono, email, estado,"****");
+                            Dashboard.ShowJPanel(new UpUsers("editar", editAgri));
+                        }
+                    });
+            
+                    etqBotonE[i].addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                                int respuesta = JOptionPane.showConfirmDialog(
+                                    null,
+                                    "Seguro que desea eliminar a: " + nombre + " " + apellido,
+                                    "Confirmar eliminación",
+                                    JOptionPane.YES_NO_OPTION
+                                );
+
+
+                                if (respuesta == JOptionPane.YES_OPTION) {
+
+                                    ConsumoApi eliminar = new ConsumoApi();
+                                    Map<String, String> updateData = new HashMap<>();
+                                    updateData.put("cedula", cedula);
+                                    updateData.put("estado", "INACTIVO");
+
+                                    eliminar.consumoPOST("http://localhost/APIenPHP-agricultura/agricultor/DeleteEstado.php"  , updateData);
+                                    ShowJPanel(new Agricultores());
+                                } else {
+
+                            }
+                        }
+                    });
                 
             }
         }else{
@@ -250,8 +302,8 @@ public class Agricultores extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(51, 51, 51));
-        jTable1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        jTable1.setBackground(new java.awt.Color(0, 51, 51));
+        jTable1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -269,6 +321,8 @@ public class Agricultores extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        jTable1.setToolTipText("");
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -344,14 +398,14 @@ public class Agricultores extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MousePressed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        agricultor agri = new agricultor(null,null,null,null,null,null);
+        agricultor agri = new agricultor(null,null,null,null,null,null,null);
         Dashboard.ShowJPanel(new UpUsers("asignar", agri));
         
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         if(this.inputBuscar.getText().isEmpty()){
-            mostrar();
+            ShowJPanel(new Agricultores());
         }else{
            buscar(); 
         }

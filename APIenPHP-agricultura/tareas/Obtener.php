@@ -5,7 +5,7 @@
 
     include 'Conexion.php';
 
-    $consulta = $base_de_datos->query("SELECT * FROM cultivos");
+    $consulta = $base_de_datos->query("SELECT * FROM tareas");
     $datos = $consulta->fetchAll();
 
     $respuesta['registros'] = $datos;

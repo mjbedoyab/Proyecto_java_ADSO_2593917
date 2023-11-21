@@ -15,14 +15,24 @@ public class agricultor {
     private String telefono;
     private String email;
     private String estado;
+    private String pass;
             
-    public agricultor(String cedula, String nombre, String apellido, String telefono, String email, String estado) {
+    public agricultor(String cedula, String nombre, String apellido, String telefono, String email, String estado, String pass) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.email = email;
         this.estado = estado;
+        this.pass=pass;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getCedula() {

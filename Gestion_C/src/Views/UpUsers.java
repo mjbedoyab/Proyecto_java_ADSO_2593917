@@ -1,6 +1,7 @@
 package Views;
 
 import Clases.agricultor;
+import Principal.Dashboard;
 import apiDB.ConsumoApi;
 import java.awt.Color;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class UpUsers extends javax.swing.JPanel {
         initComponents();
         InitStyles();
         titulo();
+        deshabilitarCedula();
     }
 
    
@@ -39,13 +41,15 @@ public class UpUsers extends javax.swing.JPanel {
              String telefono = this.agricultor.getTelefono();
              String email = this.agricultor.getEmail();
              String estado = this.agricultor.getEstado();
+             String pass = this.agricultor.getPass();
              
              this.inputCedula.setText(cedula);
              this.inputNombre.setText(nombre);
              this.inputApellidos.setText(apellido);
              this.inputTelefono.setText(telefono);
              this.inputEmail.setText(email);
-             this.inputEstado.addItem(estado);
+             this.inputEstado.setSelectedItem(estado);
+             this.inputPassword.setText(pass);
         }
     }
     
@@ -244,7 +248,12 @@ public class UpUsers extends javax.swing.JPanel {
             .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void deshabilitarCedula(){
+        if(titulo.equals("editar")){
+            this.inputCedula.setEnabled(false);
+            this.inputPassword.setEnabled(false);
+        }
+    }
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         String cedula = this.inputCedula.getText();
         String nombre = this.inputNombre.getText();
@@ -267,7 +276,30 @@ public class UpUsers extends javax.swing.JPanel {
         
         String response = insertar.consumoPOST("http://localhost/APIenPHP-agricultura/agricultor/Insertar.php", insertData);
         
-
+        
+        if(titulo.equals("editar")){
+            String nombreEdit = this.inputNombre.getText();
+            String apellidoEdit = this.inputApellidos.getText();
+            String emailEdit = this.inputEmail.getText();
+            String estadoEdit  = String.valueOf(this.inputEstado.getSelectedItem());;
+            String telefonoEdit = this.inputTelefono.getText();
+            
+            
+            Map<String, String> updateData = new HashMap<>();
+            updateData.put("cedula", cedula);
+            updateData.put("nombre", nombreEdit);
+            updateData.put("apellido", apellidoEdit);
+            updateData.put("email", emailEdit);
+            updateData.put("pass", password);
+            updateData.put("telefono", telefonoEdit);
+            updateData.put("estado", estadoEdit);
+            String respuesta = insertar.consumoPOST("http://localhost/APIenPHP-agricultura/agricultor/Update.php", updateData);
+            Dashboard.ShowJPanel(new Agricultores());
+        }else{
+            
+        }
+        
+       Dashboard.ShowJPanel(new Agricultores());
         
         
     }//GEN-LAST:event_buttonActionPerformed

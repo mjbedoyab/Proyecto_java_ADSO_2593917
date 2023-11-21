@@ -6,6 +6,7 @@
 package Principal;
 
 import apiDB.ConsumoApi;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.awt.Color;
@@ -29,11 +30,15 @@ public class Login extends javax.swing.JFrame {
         setResizable(false);
     }
     
-   public void cargarInterfaz(String nombre, String tipo, Boolean confirmar){
+   public void cargarInterfaz(String nombre, String tipo, Boolean confirmar, String cedula){
        
-       if(confirmar){
+       if(confirmar && tipo.equals("ADMIN")){
            Dashboard inter = new Dashboard(nombre, tipo);
            inter.setVisible(true);
+           dispose();
+        }else if(confirmar && tipo.equals("AGRICULTOR")){
+           DashboardA interA = new DashboardA(cedula);
+           interA.setVisible(true);
            dispose();
         }
        
@@ -80,20 +85,22 @@ public class Login extends javax.swing.JFrame {
         login.add(inputCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 370, 40));
 
         jLabel6.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel6.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Usuario");
-        login.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        login.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Contraseña");
-        login.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        login.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, 20));
         login.add(inputPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 370, 40));
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 51));
+        jButton1.setBackground(new java.awt.Color(0, 51, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("                              iniciar session");
+        jButton1.setText("                                   Iniciar sesion");
         jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -105,13 +112,13 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        login.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 340, 50));
+        login.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 370, 40));
 
-        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 430, 490));
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 430, 490));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/default.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agricultura-sostenible.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 720));
 
         jLabel10.setForeground(new java.awt.Color(73, 80, 87));
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Copyright_Container.png"))); // NOI18N
@@ -121,7 +128,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Card_Content.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 450, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -131,8 +138,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_inputCorreoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-        
+  
         if(this.inputCorreo.getText().isEmpty() || this.inputPassword.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
@@ -144,35 +150,72 @@ public class Login extends javax.swing.JFrame {
             getData.put("correo", correo);
             
             String datoUsuario = verificacion.consumoGET("http://localhost/APIenPHP-agricultura/admin/getPersona.php",getData);
+            
+           
         
         
-        
-           try {
+            //TRAY PARA EL ADMIN
+            try {
                 JsonObject persona = JsonParser.parseString(datoUsuario).getAsJsonObject();
-                String nombre = persona.get("nombre").getAsString();
-                String tipo = "ADMIN";
+                
+               
                 
                 if(persona.has("contrasenia")){
                     String contrasenia = persona.get("contrasenia").getAsString();
                     String email = persona.get("correo").getAsString();
                     System.out.println(contrasenia);
                     if(contrasenia.equals(password) && email.equals(correo) ){
+                        String nombre = persona.get("nombre").getAsString();
+                        String tipo = "ADMIN";
                         Boolean confirmacion = true;
-                        cargarInterfaz(nombre, tipo, confirmacion);
+                        cargarInterfaz(nombre, tipo, confirmacion,null);
                         
                     } else  {
 
-                        JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "Ups!!!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 
             } catch (Exception e) {
-               System.out.println("Error al verificar datos");
+               System.out.println("Error al verificar datos del administrador");
+               
+            }
+            
+            Map<String, String> getDatas = new HashMap<>();
+            getDatas.put("correo", correo);
+            
+            String datoUsuario2 = verificacion.consumoGET("http://localhost/APIenPHP-agricultura/agricultor/getAgricDocument.php",getDatas);
+            //TRY PARA EL AGRICULTOR
+            try {
+                JsonObject personaAgri = JsonParser.parseString(datoUsuario2).getAsJsonObject();
+               
+                
+                
+                if(personaAgri.has("email")){
+                    String contrasenia = personaAgri.get("pass").getAsString();
+                    String email = personaAgri.get("email").getAsString();
+                    System.out.println(contrasenia);
+                    if(contrasenia.equals(password) && email.equals(correo) ){
+                        String tipo = "AGRICULTOR";
+                        String nombre = personaAgri.get("nombre").getAsString();
+                        String cedula = personaAgri.get("cedula").getAsString();
+                        Boolean confirmacion = true;
+                        cargarInterfaz(nombre, tipo, confirmacion,cedula);
+                        
+                    } else  {
+
+                        JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "Ups!!!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } catch (Exception e) {
+               System.out.println("Error al verificar datos del agricultor");
+               JOptionPane.showMessageDialog(null, "Ningun ususario con este correo", "Usuario no encontrado", JOptionPane.ERROR_MESSAGE);
             }
        
-       
+            
         
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -204,7 +247,7 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
+        FlatMaterialLighterIJTheme.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -58,67 +58,77 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="authorLbl" max="32767" attributes="0"/>
-                                          <EmptySpace min="233" pref="233" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="titleLbl" pref="170" max="32767" attributes="0"/>
-                                          <EmptySpace min="234" pref="234" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="nomCultivo" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="authorLbl" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="301" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="titleLbl" pref="170" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="302" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                   <Component id="tipoCultivo" min="-2" pref="165" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="nomCultivo" min="-2" pref="358" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="langLbl" pref="175" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane1" min="-2" pref="372" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="langLbl" pref="175" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
+                                      </Group>
                                       <Group type="102" attributes="0">
-                                          <EmptySpace min="141" pref="141" max="-2" attributes="0"/>
-                                          <Component id="button" min="-2" pref="173" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane1" min="-2" pref="372" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                                  <Component id="button" min="-2" pref="173" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="title" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="553" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="id_cultivo" min="-2" pref="65" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="title" min="-2" pref="558" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="title" pref="157" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="title" min="-2" pref="77" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="id_cultivo" min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="langLbl" pref="65" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="118" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                           <Component id="button" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSeparator1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -141,7 +151,10 @@
         <Component class="javax.swing.JLabel" name="title">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="1"/>
+              <Font name="Segoe UI" size="36" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="         Subir nuevo Cultivo"/>
           </Properties>
@@ -183,7 +196,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Idioma"/>
+            <Property name="text" type="java.lang.String" value="Descripcion"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="button">
@@ -228,20 +241,27 @@
         <Component class="javax.swing.JComboBox" name="tipoCultivo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="3">
                 <StringItem index="0" value="VERDURAS"/>
                 <StringItem index="1" value="FRUTAS"/>
                 <StringItem index="2" value="GRANOS"/>
-                <StringItem index="3" value=" "/>
               </StringArray>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="&quot; &quot;" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipoCultivoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="id_cultivo">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
