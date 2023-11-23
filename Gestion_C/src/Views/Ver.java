@@ -63,7 +63,7 @@ public class Ver extends javax.swing.JPanel {
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);
-        tablaTareas.setRowHeight(25); // cambia el esacio que hay entre las celdas de la 
+        tablaTareas.setRowHeight(25); // cambia el espacio que hay entre las celdas de la tabla
         
         
         for (int i = 0; i < tablaTareas.getColumnCount(); i++) {
@@ -121,7 +121,7 @@ public class Ver extends javax.swing.JPanel {
                         @Override
                             public void actionPerformed(ActionEvent e) {
                                 
-                                DashboardA.ShowJPanel(new Tareas_hacer(id_cultivo2));
+                                DashboardA.ShowJPanel(new Tareas_hacer(id_cultivo2, cedula));
                             }
                         });
                         
@@ -131,10 +131,9 @@ public class Ver extends javax.swing.JPanel {
                 //
             }
         }else{
-            
+            System.out.println("Views.Agricultores.mostrar()");
         }
     }
-    
     
     public void buscar(){
         
