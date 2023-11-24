@@ -2,6 +2,7 @@ package Views;
 
 import Clases.ButtonEditor;
 import Clases.ButtonRenderer;
+import Principal.DashboardA;
 import apiDB.ConsumoApi;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -182,6 +183,7 @@ public class Tareas_hacer extends javax.swing.JPanel {
         String estado1 = "Finalizado";
         
         tareasFinalizadas(estado1);
+        DashboardA.ShowJPanel(new Tareas_hacer(id_cultivo2, cedula));
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
