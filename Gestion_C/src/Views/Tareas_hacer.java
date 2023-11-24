@@ -162,22 +162,19 @@ public class Tareas_hacer extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    public void tareasFinalizadas(String estado){
+    public void tareasFinalizadas(String estado) {
         for (int i = 0; i < lista_hecha.length; i++) {
-            if(lista_hecha[i]!= null){
-                if (check[i] != null) {
-                    String id_tarea = lista_hecha[i];
-                    Map<String, String> updateData = new HashMap<>();
-                    
-                    updateData.put("id_tarea", id_tarea);
-                    updateData.put("estado", "Finalizado");
-                    
-                    ConsumoApi update = new ConsumoApi();
-                    
-                    String actualiza_estado = update.consumoPOST("http://localhost/APIenPHP-agricultura/joins/updateTarea.php", updateData);
-                }
+            if (lista_hecha[i] != null && check[i].isSelected()) {
+                String id_tarea = lista_hecha[i];
+                Map<String, String> updateData = new HashMap<>();
+
+                updateData.put("id_tarea", id_tarea);
+                updateData.put("estado", estado);
+
+                ConsumoApi update = new ConsumoApi();
+
+                String actualiza_estado = update.consumoPOST("http://localhost/APIenPHP-agricultura/joins/updateTarea.php", updateData);
             }
-            
         }
     }
     
