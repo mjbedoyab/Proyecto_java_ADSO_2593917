@@ -11,7 +11,7 @@
     
         if ($id_agricultor !== null && $id_cultivo !== null) {
             $consulta = $base_de_datos->query("SELECT tareas.id_tarea, tareas.id_cultivo, tareas.titulo, tareas.descripcion , tarea_agricultor.fecha_fin , tareas.estado  FROM tareas
-                INNER JOIN tarea_agricultor ON tareas.id_tarea = tarea_agricultor.id_tarea WHERE tareas.id_cultivo = '$id_cultivo' OR tarea_agricultor.id_agricultor = '$id_agricultor' ");
+                INNER JOIN tarea_agricultor ON tareas.id_tarea = tarea_agricultor.id_tarea WHERE tareas.id_cultivo = '$id_cultivo' AND tarea_agricultor.id_agricultor = '$id_agricultor' ");
             $datos = $consulta->fetchAll();
             $respuesta['registros'] = $datos;
             echo json_encode($respuesta);
