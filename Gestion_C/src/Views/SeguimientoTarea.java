@@ -100,7 +100,7 @@ public class SeguimientoTarea extends javax.swing.JPanel {
                         etqBoton[i].setContentAreaFilled(false);  // Oculta el fondo del botón
                         etqBoton[i].setBorderPainted(false);     // Oculta el borde del botón
                         System.out.println("Views.SeguimientoTarea.cargarAgricultores() datos .has");
-                        //BOTON ELIMINAR
+                        
                 
                 
                         //GUARDO LOS DATOS DEL JSONOBJECT TEMPORAL EN VARIABLES
@@ -121,19 +121,11 @@ public class SeguimientoTarea extends javax.swing.JPanel {
                            });
                         modelo.addRow(new Object[]{cedula2, nombre,etqBoton[i]});
                     }
-               
-                 
-        
                 }
                     
-                //traigo los datos de la persona buscada
-                //BOTON EDITAR
-               
-            
-                
             }
         }else{
-            System.out.println("Views.Agricultores.mostrar()");
+            System.out.println("No se obtuvieron registros de la api");
         }
     }
     
@@ -158,17 +150,18 @@ public class SeguimientoTarea extends javax.swing.JPanel {
         for (int i = 0; i < jTable2.getColumnCount(); i++) {
             jTable2.getColumnModel().getColumn(i).setCellRenderer(center);
         }
-        
-        Map<String, String> getData = new HashMap<>();
-        getData.put("id_agricultor", cedula);
+
+         
+        Map<String, String> getDatass = new HashMap<>();
+        getDatass.put("id_agricultor", cedula);
+        getDatass.put("id_cultivo", id_cultivo);
 
         
-        //traigo los datos de la persona buscada
-        String getTareas = traer.consumoGET("http://localhost/APIenPHP-agricultura/tareas_agricultor/getAsignar.php",getData);
-        JsonObject listaTareas = JsonParser.parseString(getTareas).getAsJsonObject();
+        //traigo las tareas del trabajador con join en el cultivo
+        String join = traer.consumoGET("http://localhost/APIenPHP-agricultura/joins/joinsTareasCultivo.php",getDatass);
+        JsonObject listaTareas = JsonParser.parseString(join).getAsJsonObject();
         
-         
-        
+      
         
         
         if(listaTareas.has("registros")){
@@ -177,48 +170,16 @@ public class SeguimientoTarea extends javax.swing.JPanel {
             
             for(int i=0; i< tareasArray.size();i++){
                 JsonObject temporal = tareasArray.get(i).getAsJsonObject();
-                String id_tarea = temporal.get("id_tarea").getAsString();
                 
-                System.out.println(id_tarea);
+                String nombre_tarea = temporal.get("titulo").getAsString();
+                String descripcion = temporal.get("descripcion").getAsString();
+                String estado = temporal.get("estado").getAsString();
                 
-                Map<String, String> getDatas = new HashMap<>();
-                getDatas.put("id_tarea", id_tarea);
-                String datosTareas = traer.consumoGET("http://localhost/APIenPHP-agricultura/tareas/getTarea.php",getDatas);
-                System.out.println(datosTareas);
-                JsonObject datos = JsonParser.parseString(datosTareas).getAsJsonObject();
-                
-                if(datos.has("registros")){
-                    JsonArray tareasArray2 = datos.getAsJsonArray("registros");
-                    for(int j=0; j< tareasArray2.size();j++){
-                        JsonObject temporal2 = tareasArray2.get(j).getAsJsonObject();
-                        
-                        System.out.println("Views.SeguimientoTarea.cargarAgricultores() datos .has");
-                        //BOTON ELIMINAR
-                
-                
-                        //GUARDO LOS DATOS DEL JSONOBJECT TEMPORAL EN VARIABLES
-                        String nombre = temporal2.get("titulo").getAsString();
-                        String desc = temporal2.get("descripcion").getAsString();
-                        String estado = temporal2.get("estado").getAsString();
-                        
-                        System.out.println(nombre);
+                modelo.addRow(new Object[]{nombre_tarea, descripcion,estado});
                     
-                        
-                        modelo.addRow(new Object[]{nombre, desc,estado});
-                    }
-               
-                 
-        
-                }
-                    
-                //traigo los datos de la persona buscada
-                //BOTON EDITAR
-               
-            
-                
             }
         }else{
-            System.out.println("Views.Agricultores.mostrar()");
+            System.out.println("Error al traer las tareas");
         }
     }
     
@@ -252,9 +213,7 @@ public class SeguimientoTarea extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(0, 51, 51));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setBackground(new java.awt.Color(102, 102, 102));
         jTable1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -276,7 +235,7 @@ public class SeguimientoTarea extends javax.swing.JPanel {
         jScrollPane2.setBackground(new java.awt.Color(0, 102, 102));
         jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
 
-        jTable2.setBackground(new java.awt.Color(102, 102, 102));
+        jTable2.setBackground(new java.awt.Color(0, 51, 51));
         jTable2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jTable2.setForeground(new java.awt.Color(255, 255, 255));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
