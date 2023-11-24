@@ -77,7 +77,7 @@ public class Tareas_hacer extends javax.swing.JPanel {
                 if (estado == "Pendiente") {
                     modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, check[i]});
                 } else {
-                    modelo.addRow(new Object[]{"Tareas Completadas", "Tareas Completadas", "Tareas Completadas", "Tareas Completadas"});
+                    modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, "Tareas Completadas"});
                     System.out.println("Tareas Completadas");
                 }
                 
