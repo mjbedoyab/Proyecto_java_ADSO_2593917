@@ -74,9 +74,11 @@ public class Tareas_hacer extends javax.swing.JPanel {
                 String id_tarea = temporal.get("id_tarea").getAsString();
                 String estado = temporal.get("estado").getAsString();
                 lista_hecha[i]= id_tarea;
-                if (estado == "Pendiente") {
+                if (estado.equalsIgnoreCase("Pendiente")) {
+                    
                     modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, check[i]});
                 } else {
+                    
                     modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, "Tareas Completadas"});
                     System.out.println("Tareas Completadas");
                 }
