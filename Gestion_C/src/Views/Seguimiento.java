@@ -26,7 +26,7 @@ public class Seguimiento extends javax.swing.JPanel {
         InitStyles();
         init2();
         cargarCultivos();
-
+        tareasFinalizadas();
     }
     
     private void InitStyles() {
@@ -40,6 +40,29 @@ public class Seguimiento extends javax.swing.JPanel {
         
     }
     
+    public void tareasFinalizadas(){
+        ConsumoApi traer = new ConsumoApi();
+        String datos = traer.consumoGET("http://localhost/APIenPHP-agricultura/tareas/Obtener.php");
+        int contador = 0;
+        int totalTareas=0;
+        JsonObject tareas = JsonParser.parseString(datos).getAsJsonObject();
+
+         if(tareas.has("registros")){
+            JsonArray listaTareas = tareas.getAsJsonArray("registros");
+            for (int i = 0; i < listaTareas.size(); i++) {
+                 JsonObject temporal = listaTareas.get(i).getAsJsonObject();
+                 String estado = temporal.get("estado").getAsString();
+                 if(estado.equals("Finalizado")){
+                    contador++;
+                }
+                 totalTareas=i;
+            }
+
+        }
+         jLabel1.setText("SE HA REALIZADO UN TOTAL DE "+ contador+" TAREAS DE "+totalTareas);
+
+    }
+    
     public void cargarCultivos(){
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("NOMBRE");
@@ -49,7 +72,7 @@ public class Seguimiento extends javax.swing.JPanel {
         jTable1.setModel(modelo);
         ConsumoApi traer = new ConsumoApi();
         
-        ImageIcon icon_editar = new ImageIcon("src/img/binoculars.png");
+        ImageIcon icon_editar = new ImageIcon(getClass().getResource("/img/binoculars.png"));
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);

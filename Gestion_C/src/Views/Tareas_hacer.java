@@ -2,6 +2,7 @@ package Views;
 
 import Clases.ButtonEditor;
 import Clases.ButtonRenderer;
+import Principal.DashboardA;
 import apiDB.ConsumoApi;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -74,10 +75,12 @@ public class Tareas_hacer extends javax.swing.JPanel {
                 String id_tarea = temporal.get("id_tarea").getAsString();
                 String estado = temporal.get("estado").getAsString();
                 lista_hecha[i]= id_tarea;
-                if (estado == "Pendiente") {
+                if (estado.equalsIgnoreCase("Pendiente")) {
+                    
                     modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, check[i]});
                 } else {
-                    modelo.addRow(new Object[]{"Tareas Completadas", "Tareas Completadas", "Tareas Completadas", "Tareas Completadas"});
+                    
+                    modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, "Tarea Completada"});
                     System.out.println("Tareas Completadas");
                 }
                 
@@ -114,7 +117,8 @@ public class Tareas_hacer extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        tablaHacer.setBackground(new java.awt.Color(102, 102, 102));
+        tablaHacer.setBackground(new java.awt.Color(0, 102, 102));
+        tablaHacer.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         tablaHacer.setForeground(new java.awt.Color(255, 255, 255));
         tablaHacer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,22 +164,19 @@ public class Tareas_hacer extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    public void tareasFinalizadas(String estado){
+    public void tareasFinalizadas(String estado) {
         for (int i = 0; i < lista_hecha.length; i++) {
-            if(lista_hecha[i]!= null){
-                if (check[i] != null) {
-                    String id_tarea = lista_hecha[i];
-                    Map<String, String> updateData = new HashMap<>();
-                    
-                    updateData.put("id_tarea", id_tarea);
-                    updateData.put("estado", "Finalizado");
-                    
-                    ConsumoApi update = new ConsumoApi();
-                    
-                    String actualiza_estado = update.consumoPOST("http://localhost/APIenPHP-agricultura/joins/updateTarea.php", updateData);
-                }
+            if (lista_hecha[i] != null && check[i].isSelected()) {
+                String id_tarea = lista_hecha[i];
+                Map<String, String> updateData = new HashMap<>();
+
+                updateData.put("id_tarea", id_tarea);
+                updateData.put("estado", estado);
+
+                ConsumoApi update = new ConsumoApi();
+
+                String actualiza_estado = update.consumoPOST("http://localhost/APIenPHP-agricultura/joins/updateTarea.php", updateData);
             }
-            
         }
     }
     
@@ -183,6 +184,7 @@ public class Tareas_hacer extends javax.swing.JPanel {
         String estado1 = "Finalizado";
         
         tareasFinalizadas(estado1);
+        DashboardA.ShowJPanel(new Tareas_hacer(id_cultivo2, cedula));
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

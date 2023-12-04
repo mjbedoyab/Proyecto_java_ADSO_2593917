@@ -65,8 +65,9 @@ public class Agricultores extends javax.swing.JPanel {
         ConsumoApi traer = new ConsumoApi();
         init2();
         //cargo las imagenes del boton
-        ImageIcon icon = new ImageIcon("src/img/eliminar.png");
-        ImageIcon icon2 = new ImageIcon("src/img/editar.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/eliminar.png"));
+        ImageIcon icon2 = new ImageIcon(getClass().getResource("/img/editar.png"));
+        
         
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
@@ -182,8 +183,11 @@ public class Agricultores extends javax.swing.JPanel {
         
         
         //cargo las imagenes del boton
-        ImageIcon icon_editar = new ImageIcon("src/img/eliminar.png");
-        ImageIcon icon_eliminar = new ImageIcon("src/img/editar.png");
+        ImageIcon icon_editar = new ImageIcon(getClass().getResource("/img/eliminar.png"));
+        ImageIcon icon_eliminar = new ImageIcon(getClass().getResource("/img/editar.png"));
+        
+        
+        
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);

@@ -207,8 +207,11 @@ public class Cultivo extends javax.swing.JPanel {
         ConsumoApi traer = new ConsumoApi();
         
         
-        ImageIcon icon = new ImageIcon("src/img/eliminar.png");
-        ImageIcon icon2 = new ImageIcon("src/img/editar.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/eliminar.png"));
+        ImageIcon icon2 = new ImageIcon(getClass().getResource("/img/editar.png"));
+        
+        
+        
         
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();

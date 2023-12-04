@@ -57,7 +57,7 @@ public class Tareas extends javax.swing.JPanel {
             insertData.put("id_cultivo", id_cultivo);
             insertData.put("titulo", titulo);
             insertData.put("descripcion", descripcion);
-            insertData.put("estado", "Finalizado");
+            insertData.put("estado", "Pendiente");
         
         
         

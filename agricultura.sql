@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2023 a las 15:11:32
+-- Tiempo de generación: 24-11-2023 a las 16:30:50
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -90,7 +90,10 @@ INSERT INTO `agricultor_cultivo` (`id_cultivo`, `id_agricultor`) VALUES
 (104, '10832 '),
 (105, '3443 '),
 (106, '123456 '),
-(107, '10832 ');
+(107, '10832 '),
+(107, '123456'),
+(109, '123456 '),
+(110, '10832 ');
 
 -- --------------------------------------------------------
 
@@ -101,7 +104,7 @@ INSERT INTO `agricultor_cultivo` (`id_cultivo`, `id_agricultor`) VALUES
 CREATE TABLE `cultivos` (
   `id_cultivo` int(20) NOT NULL,
   `nombre` varchar(20) DEFAULT NULL,
-  `descripcion` varchar(20) DEFAULT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
   `tipo` enum('VERDURAS','FRUTAS','GRANOS') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -118,7 +121,9 @@ INSERT INTO `cultivos` (`id_cultivo`, `nombre`, `descripcion`, `tipo`) VALUES
 (105, 'cacao', 'para chocolate', 'GRANOS'),
 (106, 'frijol', 'para comer', 'GRANOS'),
 (107, 'guayaba', 'paa comer', 'FRUTAS'),
-(108, 'Cebolla', 'me hace llorar', 'VERDURAS');
+(108, 'Cebolla', 'me hace llorar', 'VERDURAS'),
+(109, 'papaya', 'papaya verde', 'FRUTAS'),
+(110, 'Zanahoria', 'My buena', 'VERDURAS');
 
 -- --------------------------------------------------------
 
@@ -129,8 +134,8 @@ INSERT INTO `cultivos` (`id_cultivo`, `nombre`, `descripcion`, `tipo`) VALUES
 CREATE TABLE `tareas` (
   `id_tarea` int(20) NOT NULL,
   `id_cultivo` int(20) DEFAULT NULL,
-  `titulo` varchar(10) DEFAULT NULL,
-  `descripcion` varchar(20) DEFAULT NULL,
+  `titulo` varchar(100) DEFAULT NULL,
+  `descripcion` varchar(300) DEFAULT NULL,
   `estado` enum('Pendiente','Finalizado') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -142,14 +147,17 @@ INSERT INTO `tareas` (`id_tarea`, `id_cultivo`, `titulo`, `descripcion`, `estado
 (2, 101, 'Pelar papa', 'todos los lidas', 'Pendiente'),
 (3, 100, 'pelar yuca', 'en la de papa', 'Pendiente'),
 (4, 103, 'COSECHAR', 'PARA EL DIA 20 DE JU', 'Pendiente'),
-(5, 104, 'recoger el', 'todos los dias', 'Pendiente'),
+(5, 104, 'recoger el', 'todos los dias', 'Finalizado'),
 (6, 100, 'lavar papa', 'hoy', 'Finalizado'),
 (7, 104, 'lavar el a', 'lavarlo cada 5 dias', 'Finalizado'),
 (8, 104, 'lavar el a', 'lavarlo cada 5 dias', 'Finalizado'),
 (9, 105, 'lavar el c', 'todos los dias', 'Finalizado'),
 (10, 106, 'sembrar', 'sembrar frijol', 'Finalizado'),
 (11, 107, 'recoger la', 'siempre', 'Finalizado'),
-(12, 108, 'Lavar cebo', 'Con agua', 'Finalizado');
+(12, 108, 'Lavar cebo', 'Con agua', 'Finalizado'),
+(13, 109, 'lavar papa', 'una vez', 'Finalizado'),
+(14, 110, 'Recoger za', 'recoger', 'Finalizado'),
+(15, 110, 'Lavar zanahoria', 'Con mucha agua y mucho jabon rey', 'Pendiente');
 
 -- --------------------------------------------------------
 
@@ -175,8 +183,12 @@ INSERT INTO `tarea_agricultor` (`id_agricultor`, `id_tarea`, `fecha_inicio`, `fe
 ('10832 ', 7, '2023-11-21', '2023-11-22'),
 ('10832 ', 8, '2023-11-21', '2023-11-22'),
 ('10832 ', 11, '2023-11-14', '2023-11-23'),
+('10832 ', 14, '2023-11-24', '2023-11-25'),
+('10832 ', 15, '2023-11-24', '2023-11-25'),
 ('123456 ', 3, '2023-11-21', '2023-11-25'),
 ('123456 ', 10, '2023-11-14', '2023-11-17'),
+('123456', 11, '2023-11-08', '2023-11-29'),
+('123456 ', 13, '2023-11-24', '2023-11-29'),
 ('23232 ', 3, '2023-11-10', '2023-11-30'),
 ('23232 ', 4, '2023-11-10', '2023-11-20'),
 ('23232 ', 5, '2023-11-10', '2023-11-24'),
@@ -236,13 +248,13 @@ ALTER TABLE `tarea_agricultor`
 -- AUTO_INCREMENT de la tabla `cultivos`
 --
 ALTER TABLE `cultivos`
-  MODIFY `id_cultivo` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id_cultivo` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id_tarea` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_tarea` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
