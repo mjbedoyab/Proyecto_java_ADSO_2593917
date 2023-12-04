@@ -67,7 +67,11 @@
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< HEAD
                   <Image iconType="3" name="/img/hombre (1).png"/>
+=======
+                  <Image iconType="3" name="/img/vision.png"/>
+>>>>>>> 7909eb06df3e483219e812c6b1769287b12e2bdd
                 </Property>
               </Properties>
               <Constraints>
