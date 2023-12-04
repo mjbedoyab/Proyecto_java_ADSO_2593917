@@ -80,7 +80,7 @@ public class Tareas_hacer extends javax.swing.JPanel {
                     modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, check[i]});
                 } else {
                     
-                    modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, "Tareas Completadas"});
+                    modelo.addRow(new Object[]{nombre_tarea, descripcion, fecha_limite, "Tarea Completada"});
                     System.out.println("Tareas Completadas");
                 }
                 
@@ -117,7 +117,8 @@ public class Tareas_hacer extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        tablaHacer.setBackground(new java.awt.Color(102, 102, 102));
+        tablaHacer.setBackground(new java.awt.Color(0, 102, 102));
+        tablaHacer.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         tablaHacer.setForeground(new java.awt.Color(255, 255, 255));
         tablaHacer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

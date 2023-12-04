@@ -59,7 +59,9 @@ public class Ver extends javax.swing.JPanel {
         modelo.addColumn("TAREAS");
         tablaTareas.setModel(modelo);
         
-        ImageIcon iconVer = new ImageIcon("src/img/binoculars.png");
+        ImageIcon iconVer = new ImageIcon(getClass().getResource("/img/binoculars.png"));
+        
+        
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);
@@ -219,6 +221,7 @@ public class Ver extends javax.swing.JPanel {
         botonBuscar.setText("BUSCAR");
         jPanel1.add(botonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(885, 80, 130, 30));
 
+        tablaTareas.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         tablaTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

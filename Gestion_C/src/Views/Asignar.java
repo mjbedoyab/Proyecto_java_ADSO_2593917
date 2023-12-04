@@ -71,7 +71,8 @@ public class Asignar extends javax.swing.JPanel {
             TablaAgricultores.getColumnModel().getColumn(i).setCellRenderer(center);
         }
         
-        ImageIcon icon = new ImageIcon("src/img/selection.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/selection.png"));
+        
         if(listaCultivos.has("registros")){
             JsonArray listaAgricultores = listaCultivos.getAsJsonArray("registros");
             etqBoton= new JButton[listaAgricultores.size()];

@@ -64,7 +64,8 @@ public class SeguimientoTarea extends javax.swing.JPanel {
         
         
         //cargo las imagenes del boton
-        ImageIcon icon = new ImageIcon("src/img/ver.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/ver.png"));
+        
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);
