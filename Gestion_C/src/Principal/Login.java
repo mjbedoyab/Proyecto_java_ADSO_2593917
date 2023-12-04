@@ -74,8 +74,8 @@ public class Login extends javax.swing.JFrame {
         login.setRoundTopRight(50);
         login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vision.png"))); // NOI18N
-        login.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 120, -1));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hombre (1).png"))); // NOI18N
+        login.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 120, -1));
 
         inputCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
